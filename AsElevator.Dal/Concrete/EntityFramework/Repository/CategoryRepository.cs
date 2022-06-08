@@ -43,6 +43,45 @@ namespace AsElevator.Dal.Concrete.EntityFramework.Repository
             return await _context.Categories.Where(a => a.Id == id).ToListAsync();
                                                                             
         }
-   
+
+        public  Task<Category> Update(Category category,int id)
+        {
+            
+                if (category == null)
+                {
+                    throw new ArgumentNullException("item");
+                }
+
+                var item = _context.Categories.FirstOrDefaultAsync(q => q.Id == id);
+
+                if (item == null)
+                {
+                    throw new ArgumentNullException("product");
+                }
+                _context.Categories.Update(category);
+                _context.SaveChanges();
+                return item;
+            
+        }
+
+       
+        public async Task<Category> CategoryExistsId(int id)
+        {
+            var exist = await _context.Categories.FirstOrDefaultAsync(a => a.Id==id);
+            return exist;
+        }
+
+        public Task<Category> GetCategory(int id)
+        {
+            var category = _context.Categories.FirstOrDefaultAsync(q => q.Id == id);
+            return category;    
+        }
+
+    
+        public async Task  Delete(Category category)
+        {
+            await Task.Run(() => { _context.Set<Category>().Remove(category); });
+            _context.SaveChanges();
+        }
     }
 }

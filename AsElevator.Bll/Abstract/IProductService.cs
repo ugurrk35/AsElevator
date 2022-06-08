@@ -13,5 +13,7 @@ namespace AsElevator.Bll.Abstract
         Task<Product> AddProductAndCategory(CreateProductDto product);
         Task<GetProductForListDto> GetProductAndCategory(int id);
         Task<GetProductWithAttributeDto> GetProductWithAttributeDto(int id);
+
+        Task<UpdateProductDto> UpdateProduct(UpdateProductDto product,int id);
     }
 }

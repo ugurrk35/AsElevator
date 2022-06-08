@@ -51,5 +51,15 @@ namespace AsElevator.Bll.Concrete
 
             return _mapper.Map<GetProductWithAttributeDto>(await _productRepository.GetProduct(id));
         }
+
+        public async Task<UpdateProductDto> UpdateProduct(UpdateProductDto product, int id)
+        {
+            var ownerEntity = await _productRepository.GetProduct(id);
+            _mapper.Map<GetProductWithAttributeDto>(ownerEntity);
+            _mapper.Map(product, ownerEntity);
+             await _productRepository.UpdateProduct(id, ownerEntity);
+
+          return product;
+        }
     }
 }

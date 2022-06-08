@@ -7,17 +7,22 @@ using System.Threading.Tasks;
 
 namespace AsElevator.Entity.Dto
 {
-    public class GetProductWithAttributeDto
+    public class UpdateProductDto
     {
         [Required]
-        public int Id { get; set; }
-        [Required]
         public string Title { get; set; }
-
+        [Required]
+        public string Description { get; set; }
+        [Required]
         public string ProductName { get; set; }
         [Required]
-        public List<ProductAttributeDto> Attributes { get; set; }
+        public string ProductCode { get; set; }
 
+        public string MetaTitle { get; set; }
+        public string MetaDescription { get; set; }
+        public string MetaKeyword { get; set; }
 
+   
     }
 }
+

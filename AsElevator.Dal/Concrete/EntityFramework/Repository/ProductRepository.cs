@@ -22,6 +22,24 @@ namespace AsElevator.Dal.Concrete.EntityFramework.Repository
             await _context.Set<T>().AddAsync(entity);
             await _context.SaveChangesAsync();
         }
+        public Task<Product> UpdateProduct(Product item, int id)
+        {
+            if (item == null)
+            {
+                throw new ArgumentNullException("item");
+            }
+
+            var product = _context.Products.FirstOrDefaultAsync(q => q.Id == id);
+
+            if (product == null)
+            {
+                throw new ArgumentNullException("product");
+            }
+            _context.Products.Update(item);
+            _context.SaveChanges();
+            return product;
+
+        }
 
         public async Task AddProductCategory(int id, int cat)
         {
@@ -53,6 +71,26 @@ namespace AsElevator.Dal.Concrete.EntityFramework.Repository
         public async Task<bool> SaveAll()
         {
             return await _context.SaveChangesAsync() > 0;
+        }
+
+
+
+        public Task UpdateProduct(int id, Product ownerEntity)
+        {
+            if (ownerEntity == null)
+            {
+                throw new ArgumentNullException("item");
+            }
+
+            var product = _context.Products.Include(p => p.ProductAttributes).FirstOrDefaultAsync(q => q.Id == id);
+
+            if (product == null)
+            {
+                throw new ArgumentNullException("product");
+            }
+            _context.Products.Update(ownerEntity);
+            _context.SaveChanges();
+            return product;
         }
     }
 }

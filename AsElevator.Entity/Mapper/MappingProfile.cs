@@ -13,10 +13,12 @@ namespace AsElevator.Entity.Mapper
     {
         public MappingProfile()
         {
+            CreateMap<Category, CategoryDto>();
             CreateMap<Category, GetCategoryDto>();
-
+            CreateMap<Category, UpdateCategoryDto>().ReverseMap();
             CreateMap<ProductAttribute, CreateProductAttributeDto>().ReverseMap();
             CreateMap<Category, CreateCategoryDto>().ReverseMap();
+            CreateMap<Product, UpdateProductCategoryDto>().ReverseMap();
 
             CreateMap<Product, CreateProductDto>()
                .ForMember(dest => dest.ProductAttributes, opt =>
@@ -29,6 +31,7 @@ namespace AsElevator.Entity.Mapper
                .ForMember(dest => dest.Categories, opt =>
                opt.MapFrom(src => src.ProductWithCategories.Select(x => new CreateProductCategoryDto { CategoryID = x.CategoryID, ProductID = x.ProductID })))
                .ReverseMap();
+
             CreateMap<Product, GetProductForListDto>()
               .ForMember(x => x.Id, opt => opt.MapFrom(src => src.Id))
               .ForMember(x => x.ProductName, opt => opt.MapFrom(src => src.ProductName))
@@ -40,10 +43,12 @@ namespace AsElevator.Entity.Mapper
                .ForMember(x => x.Id, opt => opt.MapFrom(src => src.Id))
               .ForMember(x => x.ProductName, opt => opt.MapFrom(src => src.ProductName))
               .ForMember(x => x.Title, opt => opt.MapFrom(src => src.Title))
-              .ForMember(x => x.Attributes, opt => opt.MapFrom(src => src.ProductAttributes.Select(x => x.Title)));
-     
+              .ForMember(x => x.Attributes, opt => opt.MapFrom(src => src.ProductAttributes));
 
-           
+            CreateMap<ProductAttribute, ProductAttributeDto>();
+
+            CreateMap<Product, UpdateProductDto>().ReverseMap();
+          
         }
     }
 }

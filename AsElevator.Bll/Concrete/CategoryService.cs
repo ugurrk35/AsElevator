@@ -23,6 +23,26 @@ namespace AsElevator.Bll.Concrete
             _mapper = mapper;
         }
 
+        public Task<CategoryDto> Delete(int categoryId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> DeleteByIdAsync(int id)
+        {
+            var category = await _categoryRepository.GetCategory(id);
+            if (category != null)
+            {
+                await _categoryRepository.Delete(category);
+
+               return true;
+            }
+            else
+            {
+                throw new ValidationException("kategori bulunmadı");
+            }
+        }
+
         public async Task<List<GetCategoryDto>> GetCategories(string searchTerm)
         {
             if (string.IsNullOrWhiteSpace(searchTerm))
@@ -56,5 +76,19 @@ namespace AsElevator.Bll.Concrete
             var categoryForGetDto = _mapper.Map<GetCategoryDto>(category);
             return categoryForGetDto;
         }
+
+    
+
+        public async Task<UpdateCategoryDto> Update(UpdateCategoryDto categoryDto, int id)
+        {
+            var ownerEntity = await _categoryRepository.GetCategory(id);
+            _mapper.Map<GetCategoryDto>(ownerEntity);
+            _mapper.Map(categoryDto, ownerEntity);
+            await _categoryRepository.Update(ownerEntity,id);
+
+            return categoryDto;
+        }
+    
+       
     }
 }
