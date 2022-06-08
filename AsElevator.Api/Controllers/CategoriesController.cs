@@ -32,5 +32,12 @@ namespace AsElevator.Api.Controllers
         {
             return Ok(await _categoryService.Post(categoryDto));
         }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id,UpdateCategoryDto categoryDto)
+        {
+
+            await _categoryService.Update(categoryDto);
+            return NoContent();
+        }
     }
 }

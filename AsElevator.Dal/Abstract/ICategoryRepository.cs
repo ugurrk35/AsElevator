@@ -18,5 +18,7 @@ namespace AsElevator.Dal.Abstract
         Task<List<Category>> GetCategories(string searchTerm);
         Task<List<Category>> GetCategoriesId(int id);
         Task<Category> CategoryExists(string name);
+        Task<Category> Update(Category category);
+        Task<Category> CategoryExistsId(int id);
     }
 }

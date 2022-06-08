@@ -16,7 +16,7 @@ namespace AsElevator.Entity.Dto
 
         public string ProductName { get; set; }
         [Required]
-        public IEnumerable<string> Attributes { get; set; }
+        public List<ProductAttributeDto> Attributes { get; set; }
 
 
     }

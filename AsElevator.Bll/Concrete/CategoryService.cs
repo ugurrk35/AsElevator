@@ -56,5 +56,14 @@ namespace AsElevator.Bll.Concrete
             var categoryForGetDto = _mapper.Map<GetCategoryDto>(category);
             return categoryForGetDto;
         }
+
+        public async Task<GetCategoryDto> Update(UpdateCategoryDto categoryDto)
+        {
+            var category = _mapper.Map<Category>(categoryDto);
+      
+            await _categoryRepository.Update(category);
+            var categoryForGetDto = _mapper.Map<GetCategoryDto>(category);
+            return categoryForGetDto;
+        }
     }
 }
