@@ -12,8 +12,12 @@ namespace AsElevator.Bll.Abstract
         Task<List<GetCategoryDto>> GetCategories(string searchTerm);
         Task<GetCategoryDto> Post(CreateCategoryDto categoryDto);
         Task<List<GetCategoryDto>> GetCategoriesID(int id);
+
          Task<UpdateCategoryDto> Update(UpdateCategoryDto categoryDto, int id);
         Task<CategoryDto> Delete(int categoryId);
         Task<bool> DeleteByIdAsync(int id);
+
+        Task<GetCategoryDto> Update(UpdateCategoryDto categoryDto);
+
     }
 }

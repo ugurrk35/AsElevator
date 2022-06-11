@@ -88,7 +88,10 @@ namespace AsElevator.Bll.Concrete
 
             return categoryDto;
         }
-    
-       
+
+        public Task<GetCategoryDto> Update(UpdateCategoryDto categoryDto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
