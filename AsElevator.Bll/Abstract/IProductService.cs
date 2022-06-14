@@ -15,5 +15,7 @@ namespace AsElevator.Bll.Abstract
         Task<GetProductWithAttributeDto> GetProductWithAttributeDto(int id);
 
         Task<UpdateProductDto> UpdateProduct(UpdateProductDto product,int id);
+
+        
     }
 }

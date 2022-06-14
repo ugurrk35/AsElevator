@@ -22,6 +22,7 @@ namespace AsElevator.Api
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -49,6 +50,17 @@ namespace AsElevator.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AsElevator.Api", Version = "v1" });
             });
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  policy =>
+                                  {
+                                      policy.WithOrigins("http://localhost:5000/",
+                                                          "http://localhost:4200")
+                                       .AllowAnyHeader()
+                                                  .AllowAnyMethod();
+                                  });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,7 +72,7 @@ namespace AsElevator.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AsElevator.Api v1"));
             }
-
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseRouting();
 
             app.UseAuthorization();

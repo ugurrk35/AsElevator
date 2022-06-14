@@ -23,6 +23,7 @@ namespace AsElevator.Dal.Abstract
         Task<Category> GetCategory(int id);
 
         Task Delete(Category category);
+        Task<List<Category>> GetAll();
 
     }
 }

@@ -83,5 +83,11 @@ namespace AsElevator.Dal.Concrete.EntityFramework.Repository
             await Task.Run(() => { _context.Set<Category>().Remove(category); });
             _context.SaveChanges();
         }
+
+        public async Task<List<Category>> GetAll()
+        {
+            var products = await _context.Categories.ToListAsync();
+            return products;
+        }
     }
 }

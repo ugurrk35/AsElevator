@@ -14,6 +14,7 @@ namespace AsElevator.Entity.Mapper
         public MappingProfile()
         {
             CreateMap<Category, CategoryDto>();
+            CreateMap<Category, GetListCategory>().ReverseMap();
             CreateMap<Category, GetCategoryDto>();
             CreateMap<Category, UpdateCategoryDto>().ReverseMap();
             CreateMap<ProductAttribute, CreateProductAttributeDto>().ReverseMap();

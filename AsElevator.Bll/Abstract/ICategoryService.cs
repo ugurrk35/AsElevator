@@ -1,4 +1,5 @@
 ﻿using AsElevator.Entity.Dto;
+using AsElevator.Entity.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +12,14 @@ namespace AsElevator.Bll.Abstract
     {
         Task<List<GetCategoryDto>> GetCategories(string searchTerm);
         Task<GetCategoryDto> Post(CreateCategoryDto categoryDto);
-        Task<List<GetCategoryDto>> GetCategoriesID(int id);
+        Task<IResponse<List<GetCategoryDto>>> GetCategoriesID(int id);
 
          Task<UpdateCategoryDto> Update(UpdateCategoryDto categoryDto, int id);
         Task<CategoryDto> Delete(int categoryId);
         Task<bool> DeleteByIdAsync(int id);
 
         Task<GetCategoryDto> Update(UpdateCategoryDto categoryDto);
+        Task<IResponse<List<GetListCategory>>> GetAllCategory();
 
     }
 }

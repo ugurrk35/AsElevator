@@ -2,7 +2,9 @@
 using AsElevator.Dal.Abstract;
 using AsElevator.Entity.Dto;
 using AsElevator.Entity.Models;
+using AsElevator.Entity.Response;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -43,6 +45,33 @@ namespace AsElevator.Bll.Concrete
             }
         }
 
+        public async Task<IResponse<List<GetListCategory>>> GetAllCategory()
+        {
+             try
+            {
+                var a = await _categoryRepository.GetAll();
+                var list =  _mapper.Map<List<GetListCategory>>(a);
+                var response = new Response<List<GetListCategory>>
+                {
+                    Message = "Success",
+                    StatusCode = StatusCodes.Status200OK,
+                    Data = list
+                };
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                return new Response<List<GetListCategory>>
+                {
+                    Message = $"Error:{ex.Message}",
+                    StatusCode = StatusCodes.Status500InternalServerError,
+                    Data = null
+                };
+            }
+
+        }
+
         public async Task<List<GetCategoryDto>> GetCategories(string searchTerm)
         {
             if (string.IsNullOrWhiteSpace(searchTerm))
@@ -52,9 +81,30 @@ namespace AsElevator.Bll.Concrete
             return _mapper.Map<List<GetCategoryDto>>(await _categoryRepository.GetCategories(searchTerm));
         }
 
-        public async Task<List<GetCategoryDto>> GetCategoriesID(int id)
+        public async Task<IResponse<List<GetCategoryDto>>> GetCategoriesID(int id)
         {
-            return _mapper.Map<List<GetCategoryDto>>(await _categoryRepository.GetCategoriesId(id));
+            
+           var category = await _categoryRepository.GetCategoriesId(id);
+            var list = _mapper.Map<List<GetCategoryDto>>(category);
+            if (category.Count>0)
+            {
+                return new Response<List<GetCategoryDto>>
+                {
+                    Message = "Success",
+                    StatusCode = StatusCodes.Status200OK,
+                    Data = list
+                };
+            }
+            else
+            {
+                return new Response<List<GetCategoryDto>>
+                {
+                    Message = "Böyle bir kategori bulunamadı.",
+                    StatusCode = StatusCodes.Status500InternalServerError,
+                    Data = null
+                };
+            }
+      
         }
 
         public async Task<GetCategoryDto> Post(CreateCategoryDto categoryDto)

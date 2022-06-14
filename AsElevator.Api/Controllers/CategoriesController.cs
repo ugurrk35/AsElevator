@@ -27,6 +27,11 @@ namespace AsElevator.Api.Controllers
         {
             return Ok(await _categoryService.GetCategoriesID(id));
         }
+        [HttpGet("GetAll")]
+        public async Task<ActionResult> GetAllCategory()
+        {
+            return Ok(await _categoryService.GetAllCategory());
+        }
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateCategoryDto categoryDto)
         {
