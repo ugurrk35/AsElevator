@@ -92,5 +92,11 @@ namespace AsElevator.Dal.Concrete.EntityFramework.Repository
             _context.SaveChanges();
             return product;
         }
+
+        public async Task<List<Product>> GetAll()
+        {
+            var products = await _context.Products.ToListAsync();
+            return products;
+        }
     }
 }

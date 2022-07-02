@@ -1,5 +1,6 @@
 ﻿using AsElevator.Entity.Dto;
 using AsElevator.Entity.Models;
+using AsElevator.Entity.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,6 @@ namespace AsElevator.Bll.Abstract
 
         Task<UpdateProductDto> UpdateProduct(UpdateProductDto product,int id);
 
-        
+        Task<IResponse<List<GetListProducts>>> GetAllCategory();
     }
 }

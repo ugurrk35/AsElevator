@@ -2,7 +2,9 @@
 using AsElevator.Dal.Abstract;
 using AsElevator.Entity.Dto;
 using AsElevator.Entity.Models;
+using AsElevator.Entity.Response;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -39,6 +41,32 @@ namespace AsElevator.Bll.Concrete
                 await _productRepository.AddProductCategory(product.Id, category);
             }
             return product;
+        }
+
+        public async  Task<IResponse<List<GetListProducts>>> GetAllCategory()
+        {
+            try
+            {
+                var a = await _productRepository.GetAll();
+                var list = _mapper.Map<List<GetListProducts>>(a);
+                var response = new Response<List<GetListProducts>>
+                {
+                    Message = "Success",
+                    StatusCode = StatusCodes.Status200OK,
+                    Data = list
+                };
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                return new Response<List<GetListProducts>>
+                {
+                    Message = $"Error:{ex.Message}",
+                    StatusCode = StatusCodes.Status500InternalServerError,
+                    Data = null
+                };
+            }
         }
 
         public async Task<GetProductForListDto> GetProductAndCategory(int id)

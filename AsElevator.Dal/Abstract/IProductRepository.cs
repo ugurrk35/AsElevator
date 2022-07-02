@@ -18,5 +18,6 @@ namespace AsElevator.Dal.Abstract
         Task<Product> UpdateProduct(Product item, int id);
         Task<bool> SaveAll();
         Task UpdateProduct(int id, Product ownerEntity);
+        Task<List<Product>> GetAll();
     }
 }

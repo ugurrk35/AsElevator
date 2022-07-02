@@ -42,8 +42,13 @@ namespace AsElevator.Api.Controllers
         {
 
             return Ok(await _productService.UpdateProduct(item, id));
-        
           
+
+        }
+        [HttpGet("GetAll")]
+        public async Task<ActionResult> GetAllCategory()
+        {
+            return Ok(await _productService.GetAllCategory());
         }
     }
 }

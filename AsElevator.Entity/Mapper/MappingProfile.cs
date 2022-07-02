@@ -49,7 +49,7 @@ namespace AsElevator.Entity.Mapper
             CreateMap<ProductAttribute, ProductAttributeDto>();
 
             CreateMap<Product, UpdateProductDto>().ReverseMap();
-          
+            CreateMap<Product, GetListProducts>().ReverseMap();
         }
     }
 }
